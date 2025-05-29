@@ -7,7 +7,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
+import java.util.UUID;
 import java.util.List;
 
 @Service
@@ -20,7 +20,7 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    public Employee getEmployeeById(Long id) {
+    public Employee getEmployeeById(UUID id) {
         Employee employee = employeeRepository.findById(id).orElse(null);
         if (employee == null) {
             throw new RuntimeException("Employee not found with id: " + id);
@@ -51,7 +51,7 @@ public class EmployeeService {
         return employee;
     }
 
-    public Employee updateEmployee(Long id, Employee employeeDetails) {
+    public Employee updateEmployee(UUID id, Employee employeeDetails) {
         Employee employee = getEmployeeById(id);
         
         // Only update non-null fields
@@ -74,7 +74,7 @@ public class EmployeeService {
         return employeeRepository.save(employee);
     }
 
-    public void deleteEmployee(Long id) {
+    public void deleteEmployee(UUID id) {
         Employee employee = getEmployeeById(id);
         employeeRepository.delete(employee);
     }
